@@ -1,0 +1,36 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Consistent heading font */
+    font-weight: 700; /* Bold for prominence */
+    margin: 0;
+    line-height: 1.2;
+}
+
+p, li {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; /* Consistent font size */
+}
+
+a {
+    color: #FFD700; /* Accent color for links */
+    text-decoration: none;
+    font-weight: 500; /* Slightly bolder for links */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover for clarity */
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding: 10px 20px;
+    background-color: #444444; /* Button background color */
+    color: #FFFFFF; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555555; /* Darker on hover */
+}
