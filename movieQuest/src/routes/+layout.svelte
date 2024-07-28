@@ -22,6 +22,7 @@
     background-color: black;
     font-family: 'Roboto', sans-serif;
     color: #f1f1f1;
+    overflow-x: hidden;
   }
 
   :global(body) {

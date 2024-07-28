@@ -3,27 +3,46 @@
     import { onMount } from 'svelte';
     import { fetchPopularMovies, fetchPopularMoviesPosters } from '../lib/api/fetchPopularMovies';
     import { searchMovieByName } from '../lib/api/searchMovieByName';
+    import { fetchMovieGenres, fetchMovieGenresByID } from '../lib/api/fetchMovieGenres';
 
     let movies = [];
     let moviesPosters =[];
     let originalMoviesPosters = [];
     let searchQuery = '';
+    let movieGenres = [];
+    let genreId = '';
 
     onMount(async () => {
       movies = await fetchPopularMovies();
       moviesPosters = await fetchPopularMoviesPosters();
       originalMoviesPosters = [...moviesPosters];
+      movieGenres = await fetchMovieGenres();
+      console.log(movieGenres)
     });
 
     async function handleSearch() {
         if (searchQuery.trim() === '') {
             moviesPosters = [...originalMoviesPosters];
         } else {
-            movies = await searchMovieByName(searchQuery);
+            movies = await searchMovieByName(searchQuery,genreId);
             moviesPosters = movies
                 .filter(movie => movie.poster_path)
                 .map(movie => ({
                     posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                }));
+        }
+    }
+
+    async function handleSearchByGenres(event) {
+        genreId = event.target.value;
+        if (genreId === '') {
+            moviesPosters = [...originalMoviesPosters];
+        } else {
+            movies = await fetchMovieGenresByID(genreId);
+            moviesPosters = movies
+                .filter(movie => movie.poster_path)
+                .map(movie => ({
+                posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                 }));
         }
     }
@@ -51,6 +70,12 @@
 
 <div class="search-container">
     <input type="text" class="search-bar" bind:value={searchQuery} on:input={handleSearch} placeholder="Search...">
+    <select class="drop-down" on:change={handleSearchByGenres}>
+        <option value="">Select Genre</option>
+        {#each movieGenres as genre}
+          <option value={genre.id}>{genre.name}</option>
+        {/each}
+    </select>
 </div>
 
 <div class="main-card-container">
@@ -87,6 +112,7 @@
         align-items: center;
         width: 100%;
         padding: 20px;
+        gap:30px
     }
 
     .search-bar {
@@ -162,6 +188,32 @@
 
     .scroll-button:hover{
         color:red
+    }
+
+    .drop-down {
+        appearance: none;
+        width: 10%;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+        border: 2px solid #ccc;
+        border-radius: 25px;
+        background-color: #fff;
+        color: #333;
+        cursor: pointer;
+
+    }
+
+    .drop-down:hover {
+        border-color: #FF6347;
+    }
+
+    .drop-down:focus {
+        outline: none;
+        border-color: #FF6347;
+    }
+
+    .drop-down option {
+        color: #333;
     }
 
 </style>
