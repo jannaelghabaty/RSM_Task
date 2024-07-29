@@ -11,7 +11,7 @@
 	let searchQuery = '';
 	let movieGenres = [];
 	let genreId = '';
-    let includeAdult = false;
+	let includeAdult = false;
 
 	// Fetch popular movies, posters, and genres on component mount
 	onMount(async () => {
@@ -78,7 +78,7 @@
 			<option value={genre.id}>{genre.name}</option>
 		{/each}
 	</select>
-    <label>
+	<label>
 		<input type="checkbox" bind:checked={includeAdult} on:change={handleSearch} />
 		Include Adult
 	</label>
