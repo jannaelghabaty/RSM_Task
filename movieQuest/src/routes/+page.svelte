@@ -2,7 +2,7 @@
 <script>
     import { onMount } from 'svelte';
     import { fetchPopularMovies, fetchPopularMoviesPosters } from '../lib/api/fetchPopularMovies';
-    import { searchMovieByName } from '../lib/api/searchMovieByName';
+    import { searchMovie } from '../lib/api/searchMovie';
     import { fetchMovieGenres, fetchMovieGenresByID } from '../lib/api/fetchMovieGenres';
 
     let movies = [];
@@ -23,10 +23,10 @@
 
     // Search for movies by name or genre
     async function handleSearch() {
-        if (searchQuery.trim() === '') {
+        if (searchQuery.trim() === '' && genreId === '') {
             moviesPosters = [...originalMoviesPosters];
         } else {
-            movies = await searchMovieByName(searchQuery,genreId);
+            movies = await searchMovie(searchQuery,genreId);
             moviesPosters = movies
                 .filter(movie => movie.poster_path)
                 .map(movie => ({
@@ -37,16 +37,7 @@
 
     async function handleSearchByGenres(event) {
         genreId = event.target.value;
-        if (genreId === '') {
-            moviesPosters = [...originalMoviesPosters];
-        } else {
-            movies = await fetchMovieGenresByID(genreId);
-            moviesPosters = movies
-                .filter(movie => movie.poster_path)
-                .map(movie => ({
-                posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                }));
-        }
+        handleSearch();
     }
 
     // Functions for scrolling movie posters horizontally
