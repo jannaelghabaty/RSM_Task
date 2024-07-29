@@ -1,4 +1,4 @@
-<!-- This page reprents the app homePage -->
+<!-- +page.svelte: Homepage of the app displaying popular movies -->
 <script>
     import { onMount } from 'svelte';
     import { fetchPopularMovies, fetchPopularMoviesPosters } from '../lib/api/fetchPopularMovies';
@@ -12,6 +12,7 @@
     let movieGenres = [];
     let genreId = '';
 
+    // Fetch popular movies, posters, and genres on component mount
     onMount(async () => {
       movies = await fetchPopularMovies();
       moviesPosters = await fetchPopularMoviesPosters();
@@ -20,6 +21,7 @@
       console.log(movieGenres)
     });
 
+    // Search for movies by name or genre
     async function handleSearch() {
         if (searchQuery.trim() === '') {
             moviesPosters = [...originalMoviesPosters];
@@ -47,6 +49,7 @@
         }
     }
 
+    // Functions for scrolling movie posters horizontally
     function scrollLeft() {
         const mainCard = document.querySelector('.main-card');
         if(mainCard){
@@ -65,9 +68,12 @@
 
 </script>
 
+<!-- Main content for Movie Quest app -->
+<!-- Title and Subtitle -->
 <h1 class="title">Movie Quest</h1>
 <h2 class="sub-title">Find Movies, TV Shows, and more</h2>
 
+<!-- Search and Filter Section -->
 <div class="search-container">
     <input type="text" class="search-bar" bind:value={searchQuery} on:input={handleSearch} placeholder="Search...">
     <select class="drop-down" on:change={handleSearchByGenres}>
@@ -78,6 +84,7 @@
     </select>
 </div>
 
+<!-- Movie Posters Display Section -->
 <div class="main-card-container">
     <button class="scroll-button left" on:click={scrollLeft}>&#10094;</button>
     <div class="main-card">
@@ -89,7 +96,6 @@
     </div>
     <button class="scroll-button right" on:click={scrollRight}>&#10095;</button>
 </div>
-
 
 <style lang="scss">
 

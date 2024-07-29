@@ -1,10 +1,13 @@
+<!-- Footer.svelte: Footer component for the app -->
 <script>
+    // Get the current year dynamically
     const currentYear = new Date().getFullYear();
 </script>
 
 <footer>
     <div class="footer-content">
         <p>&copy; {currentYear} Movie Quest. All rights reserved.</p>
+        <!-- Social and contact links -->
         <nav>
             <a href="https://www.linkedin.com/in/jannaelghabaty/" target="_blank" aria-label="LinkedIn">
                 <svg width="24" height="24" viewBox="0 0 24 24"><path d="M19 0h-14c-2.762 0-5 2.238-5 5v14c0 2.762 2.238 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.762-2.238-5-5-5zm-11 20h-3v-11h3v11zm-1.5-12.276c-.966 0-1.75-.792-1.75-1.763 0-.972.784-1.764 1.75-1.764s1.75.792 1.75 1.764c0 .971-.784 1.763-1.75 1.763zm13.5 12.276h-3v-5.568c0-1.334-.026-3.051-1.859-3.051-1.861 0-2.146 1.45-2.146 2.949v5.67h-3v-11h2.877v1.501h.041c.4-.756 1.377-1.552 2.834-1.552 3.03 0 3.588 1.993 3.588 4.584v6.467z"/></svg>

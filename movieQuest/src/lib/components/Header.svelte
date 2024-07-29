@@ -1,12 +1,16 @@
+<!-- Header.svelte: Header component for the app -->
 <script>
-      export let logoSrc = '/Logo.jpg'; // Path to Logo image
-      export let altText =  'Movies App Logo'; // Alt text for the logo
+    // Props for the logo image source and alternative text
+    export let logoSrc = '/Logo.jpg';
+    export let altText =  'Movies App Logo';
 </script>
 
 <header>
+     <!-- Logo section -->
     <div class="logo">
         <img src={logoSrc} alt={altText} />
     </div>
+    <!-- Navigation menu -->
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
