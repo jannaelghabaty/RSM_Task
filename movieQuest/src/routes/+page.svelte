@@ -11,6 +11,7 @@
 	let searchQuery = '';
 	let movieGenres = [];
 	let genreId = '';
+    let includeAdult = false;
 
 	// Fetch popular movies, posters, and genres on component mount
 	onMount(async () => {
@@ -18,7 +19,6 @@
 		moviesPosters = await fetchPopularMoviesPosters();
 		originalMoviesPosters = [...moviesPosters];
 		movieGenres = await fetchMovieGenres();
-		console.log(movieGenres);
 	});
 
 	// Search for movies by name or genre
@@ -26,7 +26,7 @@
 		if (searchQuery.trim() === '' && genreId === '') {
 			moviesPosters = [...originalMoviesPosters];
 		} else {
-			movies = await searchMovie(searchQuery, genreId);
+			movies = await searchMovie(searchQuery, genreId, includeAdult);
 			moviesPosters = movies
 				.filter((movie) => movie.poster_path)
 				.map((movie) => ({
@@ -78,6 +78,10 @@
 			<option value={genre.id}>{genre.name}</option>
 		{/each}
 	</select>
+    <label>
+		<input type="checkbox" bind:checked={includeAdult} on:change={handleSearch} />
+		Include Adult
+	</label>
 </div>
 
 <!-- Movie Posters Display Section -->
